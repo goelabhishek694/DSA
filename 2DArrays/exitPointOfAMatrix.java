@@ -21,13 +21,26 @@ public class Main {
 
     public static void exitPoint(int[][] arr){
         int[][] dirA={{1,0},{0,-1},{-1,0},{0,1}};
-        int count=-1;
+        int curDir=3;
+        int i=0; int j=0;
 
-        for(int i=0;i<arr.length;i++){
-            for(int j=0;j<arr[0].length;j++){
-                
+        while(i<arr.length && j<arr[0].length  && i>=0 && j>=0){
+            int val=arr[i][j];
+            if(val==0){
+                i=i+dirA[curDir%4][0];
+                j=j+dirA[curDir%4][1];
+            }
+            else if(val==1){
+                curDir++;
+                arr[i][j]=0;
+                i=i+dirA[curDir%4][0];
+                j=j+dirA[curDir%4][1];
             }
         }
+        i=i-dirA[curDir%4][0];
+        j=j-dirA[curDir%4][1];
+        System.out.println(i);
+        System.out.println(j);
     }
 
 }
