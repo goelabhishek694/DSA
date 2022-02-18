@@ -118,3 +118,106 @@ public class Main {
     }
 
 }
+
+
+//leetcode 1914
+
+class Solution {
+    public int[][] rotateGrid(int[][] grid, int k) {
+        
+        int[][] res=rotateMatrix(grid,k);
+        return res;
+        
+    }
+    
+    public int[][] rotateMatrix(int[][] grid, int k ){
+        int shell=0;
+        while(shell<=(grid.length-1)/2){
+            int startRow=shell;
+            int startCol=shell;  
+            int endRow=grid.length-shell-1;
+            int endCol=grid[0].length-shell-1;
+            int size=2*((endRow-startRow+1)+(endCol-startCol+1));
+
+            int[] arr=new int[size];
+            int idx=0;
+            //pushing elements in 1d array 
+            while(idx<size){
+                for(int i=startRow,j=startCol;j<=endCol;j++){
+                    arr[idx]=grid[i][j];
+                    idx++;
+                }
+                startRow++;
+
+                for(int i=startRow,j=endCol;i<=endRow;i++){
+                    arr[idx]=grid[i][j];
+                    idx++;
+                }
+                endCol--;
+                
+                for(int i=endRow,j=endCol;j>=startCol;j--){
+                    arr[idx]=grid[i][j];
+                    idx++;
+                }
+                endRow--;
+
+                for(int i=endRow,j=startCol;i>=startRow;i--){
+                    arr[idx]=grid[i][j];
+                    idx++;
+                }
+                startCol++;
+            }
+
+            //rotating the element
+            for(int i=0;i<k;i++){
+                int temp=arr[0];
+                for(int j=1;j<size;j++){
+                    arr[i-1]=arr[i];
+                }
+                arr[size-1]=temp;
+            }
+
+            idx=0;
+            startRow=shell;
+            startCol=shell;
+            endRow=grid.length-shell-1;
+            endCol=grid[0].length-shell-1;
+
+            while(idx<size){
+                for(int i=startRow,j=startCol;j<=endCol;j++){
+                    arr[idx]=grid[i][j];
+                    idx++;
+                }
+                startRow++;
+
+                for(int i=startRow,j=endCol;i<=endRow;i++){
+                    arr[idx]=grid[i][j];
+                    idx++;
+                }
+                endCol--;
+                
+                for(int i=endRow,j=endCol;j>=startCol;j--){
+                    arr[idx]=grid[i][j];
+                    idx++;
+                }
+                endRow--;
+
+                for(int i=endRow,j=startCol;i>=startRow;i--){
+                    arr[idx]=grid[i][j];
+                    idx++;
+                }
+                startCol++;
+            }
+            shell++;
+        }
+        return grid;
+    }
+}
+
+
+//infinity  
+console.log(Infinity - Infinity - 1);
+console.log(NaN == NaN);
+// ternary operator 
+// null undefined
+//automatic type conversion
