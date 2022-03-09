@@ -15,10 +15,9 @@ public class Main {
         }
         char ch=str.charAt(0);
         String ros=str.substring(1);
-        for(int i=0;i<str.length();i++){
-            printSS(ros,ans+ch);
-            printSS(ros,ans);
-        }
+        printSS(ros,ans+ch);
+        printSS(ros,ans);
+        
     }
 
 }
