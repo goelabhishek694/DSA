@@ -74,8 +74,8 @@ public class Main{
     }
 
     public static int precedence(char ch){
-        if(ch=='+' || ch=='-') return 0;
-        if(ch=='*' || ch=='/') return 1;
-        return 2;
+        if(ch=='+' || ch=='-') return 1;
+        if(ch=='*' || ch=='/') return 2;
+        return 0;
     }
 }
