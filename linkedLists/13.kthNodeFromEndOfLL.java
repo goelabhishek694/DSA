@@ -208,7 +208,7 @@ public class Main {
           fast=fast.next;
           k--;
       }
-      while(fast.next!=null && fast.next.next!=null){
+      while(fast!=tail){
           slow=slow.next;
           fast=fast.next;
       }
