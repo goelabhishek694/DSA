@@ -91,18 +91,46 @@ public class Main {
     return th;
   }
 
-    public static boolean isBinarySearchTree(int lb, Node node, int ub){
-        if(node==null) return true;
+    // public static boolean isBinarySearchTree(int lb, Node node, int ub){
+    //     if(node==null) return true;
 
-        boolean lbst=isBinarySearchTree(lb,node.left,node.data);
-        boolean rbst=isBinarySearchTree(node.data,node.right,ub);
-        if(lbst && rbst){
-            if(node.data>lb && node.data<ub){
-                return true;
-            }
-        }
-        return false;
+    //     boolean lbst=isBinarySearchTree(lb,node.left,node.data);
+    //     boolean rbst=isBinarySearchTree(node.data,node.right,ub);
+    //     if(lbst && rbst){
+    //         if(node.data>lb && node.data<ub){
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
+  public static class bstPair{
+    boolean isBST;
+    int min;
+    int max;
+  }
+
+  public static bstPair isBinarySearchTree(Node node){
+
+    if(node==null){
+      bstPair resPair=new bstPair();
+      resPair.isBST=true;
+      resPair.min=Integer.MAX_VALUE;
+      resPair.max=Integer.MIN_VALUE;
+      return resPair;
     }
+
+    bstPair lbst=isBinarySearchTree(node.left);
+    bstPair rbst=isBinarySearchTree(node.right); 
+
+    bstPair myPair=new bstPair();
+    myPair.isBST=lbst.isBST && rbst.isBST && lbst.max<=node.data && rbst.min>=node.data;
+
+    myPair.min=Math.min(node.data,Math.min(lbst.min,rbst.min));
+    myPair.max=Math.max(node.data,Math.max(lbst.max,rbst.max));
+
+    return myPair;
+
+  }
  
   
   public static void main(String[] args) throws Exception {
@@ -119,10 +147,11 @@ public class Main {
     }
 
     Node root = construct(arr);
-    
+     
     // write your code here
-    boolean res=isBinarySearchTree(Integer.MIN_VALUE, root, Integer.MAX_VALUE);
-    System.out.println(res);
+    // boolean res=isBinarySearchTree(Integer.MIN_VALUE, root, Integer.MAX_VALUE);
+    bstPair res=isBinarySearchTree(root);
+    System.out.println(res.isBST);
   }
 
 }
