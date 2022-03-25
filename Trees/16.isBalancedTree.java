@@ -78,36 +78,36 @@ public class Main {
     display(node.left);
     display(node.right);
   }
-
-  public static int height(Node node) {
-    if (node == null) {
-      return -1;
+    public static class BTPair{
+        boolean isBT;
+        int depth;
     }
 
-    int lh = height(node.left);
-    int rh = height(node.right);
+    public static BTPair isBalancedTree(Node node){
 
-    int th = Math.max(lh, rh) + 1;
-    return th;
-  }
+        if(node==null){
+            BTPair bp=new BTPair();
+            bp.isBT=true;
+            bp.depth=0;
+            return bp;
+        }
 
-  static int tilt = 0;
-  public static int tilt(Node node){
-    // write your code here to set the tilt data member
-    if(node==null) return 0;
-    
-    int ls=tilt(node.left);
-    int rs=tilt(node.right);
+        BTPair lt=isBalancedTree(node.left);
+        BTPair rt=isBalancedTree(node.right);
 
-    tilt+=Math.abs(ls-rs);
-    return ls+rs+node.data;
-  }
+        BTPair mp=new BTPair();
+        mp.isBT=lt.isBT && rt.isBT && Math.abs(lt.depth-rt.depth)<2;
+        mp.depth=Math.max(lt.depth,rt.depth)+1;
 
+        return mp;
+
+    }
+  
   public static void main(String[] args) throws Exception {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     int n = Integer.parseInt(br.readLine());
     Integer[] arr = new Integer[n];
-    String[] values = br.readLine ().split(" ");
+    String[] values = br.readLine().split(" ");
     for (int i = 0; i < n; i++) {
       if (values[i].equals("n") == false) {
         arr[i] = Integer.parseInt(values[i]);
@@ -117,9 +117,10 @@ public class Main {
     }
 
     Node root = construct(arr);
-
-    tilt(root);
-    System.out.println(tilt);
+    
+    // write your code here
+   BTPair res=isBalancedTree(root);
+    System.out.println(res.isBT);
   }
 
 }
