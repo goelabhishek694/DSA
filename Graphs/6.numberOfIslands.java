@@ -43,3 +43,58 @@ public class Main {
    }
 
 }
+
+//leetcode 547
+
+class Solution {
+    class Edge {
+      int src;
+      int nbr;
+
+      Edge(int src, int nbr) {
+         this.src = src;
+         this.nbr = nbr;
+      }
+   }
+    public int findCircleNum(int[][] isConnected) {
+        int n=isConnected.length;
+        boolean[] vis=new boolean[n];
+        ArrayList<Edge>[] graph=new ArrayList[n];
+        for(int i=0;i<n;i++){
+            graph[i]=new ArrayList<>();
+        }
+        
+        for(int i=0;i<isConnected.length;i++){
+            for(int j=0;j<isConnected.length;j++){
+                if(isConnected[i][j]==1){
+                    graph[i].add(new Edge(i,j));
+                }
+            }
+        }
+        return numProvincesHelper(graph,vis,n);
+    }
+
+    
+    
+    public int numProvincesHelper(ArrayList<Edge>[] graph, boolean[] vis, int n){
+        int count=0;
+        for(int i=0;i<n;i++){
+          if(!vis[i]){
+              vis[i]=true;
+              getConnectedComponents(graph,vis,i);
+              count++;
+          }
+        }
+        return count;
+    }
+    
+    public void getConnectedComponents(ArrayList<Edge>[] graph, boolean[] vis,int src){
+        
+        for(Edge e:graph[src]){
+            if(!vis[e.nbr]){
+                vis[e.nbr]=true;
+                getConnectedComponents(graph,vis,e.nbr);
+            }
+        }
+    }
+}
