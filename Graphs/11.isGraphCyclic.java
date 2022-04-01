@@ -55,7 +55,7 @@ public class Main {
            }
            vis[rs]=true;
 
-           for(Edge e:graph[src]){
+           for(Edge e:graph[rs]){
                if(!vis[e.nbr]){
                    que.add(e.nbr);
                }

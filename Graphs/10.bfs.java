@@ -59,9 +59,9 @@ public class Main {
            System.out.println(rp.src+"@"+rp.psf);
            vis[rp.src]=true;
            for(Edge e:graph[rp.src]){
-            //    if(!vis[e.nbr]){
+               if(!vis[e.nbr]){
                    que.addLast(new Pair(e.nbr,rp.psf+e.nbr));
-            //    }
+               }
            }
        }
    }
