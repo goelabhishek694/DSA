@@ -98,7 +98,7 @@ public class Main {
         if (val != -1) {
           System.out.println(val);
         }
-      } else if (str.startsWith("peek")) {
+      } else if (str.startsWith("peek")) { 
         int val = qu.peek();
         if (val != -1) {
           System.out.println(val);
