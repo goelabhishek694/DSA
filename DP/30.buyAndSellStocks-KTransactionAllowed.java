@@ -51,3 +51,23 @@ public class Main {
     }
 
 }
+
+
+//leetcode 188
+
+class Solution {
+    public int maxProfit(int k, int[] prices) {
+        if(prices.length<1) return 0;
+        int[][] dp=new int[k+1][prices.length];
+        
+        for(int t=1;t<=k;t++){
+            int max=Integer.MIN_VALUE;
+            for(int p=1;p<prices.length;p++){
+                max=Math.max(max,dp[t-1][p-1]-prices[p-1]);
+                dp[t][p]=Math.max(dp[t][p-1],max+prices[p]);
+            }
+        }
+        
+        return dp[k][prices.length-1];
+    }
+}
