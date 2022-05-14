@@ -56,3 +56,38 @@ public class Main {
     }
 
 }
+
+// leetcode 129
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        int[] dp1=new int[prices.length];
+        int maxProfitIfSoldTodayOrEarlier=Integer.MIN_VALUE;
+        int min=prices[0];
+        for(int i=1;i<prices.length;i++){
+            if(prices[i]<min){
+                min=prices[i];
+            }
+            maxProfitIfSoldTodayOrEarlier=Math.max(maxProfitIfSoldTodayOrEarlier,prices[i]-min);
+            dp1[i]=maxProfitIfSoldTodayOrEarlier;
+        }
+        
+        int[] dp2=new int[prices.length];
+        int maxProfitIfSoldTodayOrLater=Integer.MIN_VALUE;
+        int max=prices[prices.length-1];
+        for(int i=prices.length-2;i>=0;i--){
+            if(max<prices[i]){
+                max=prices[i];
+            }
+            maxProfitIfSoldTodayOrLater=Math.max(maxProfitIfSoldTodayOrLater,max-prices[i]);
+            dp2[i]=maxProfitIfSoldTodayOrLater;
+        }
+        
+        int maxProfit=0;
+        for(int i=0;i<dp1.length;i++){
+            maxProfit=Math.max(maxProfit,dp1[i]+dp2[i]);
+        }
+        
+        return maxProfit;
+    }
+}
