@@ -27,3 +27,27 @@ public static void main(String[] args) throws Exception {
  }
 
 }
+
+// gfg
+// https://www.geeksforgeeks.org/count-possible-ways-to-construct-buildings/
+class Solution
+{
+    public int TotalWays(int N)
+    {
+        
+        long oldB=1;
+        long oldS=1;
+        long mod=1000000007;
+        for(int i=2;i<=N;i++){
+            
+            long newS=(oldB+oldS)%mod;
+            long newB=oldS%mod;
+            
+            oldB=newB;
+            oldS=newS;
+            
+        }
+        long ans=(oldB+oldS)%mod;
+        return (int)((ans*ans)%mod);
+    }
+}
