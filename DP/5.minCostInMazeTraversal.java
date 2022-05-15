@@ -50,38 +50,28 @@ public class Main {
 
 // leetcode 64. Minimum Path Sum
 
-class Solution{
-    static int maxGold(int n, int m, int arr[][])
-    {
-        // code here
-        int[][]dp=new int[n][m];
-        for(int c=m-1;c>=0;c--){
-            for(int r=0;r<n;r++){
-                if(c==m-1){
-                    dp[r][c]=arr[r][c];
+class Solution {
+    public int minPathSum(int[][] grid) {
+        int[][]dp=new int[grid.length][grid[0].length];
+
+        for(int i=grid.length-1;i>=0;i--){
+            for(int j=grid[0].length-1;j>=0;j--){
+                if(i==grid.length-1 && j==grid[0].length-1){
+                    dp[i][j]=grid[i][j];
                     continue;
                 }
-                int maxGold=Integer.MIN_VALUE;
-                if(c+1<m){
-                    if(r-1>=0){
-                        maxGold=Math.max(maxGold,dp[r-1][c+1]);
-                    }
-                    if(r>=0){
-                        maxGold=Math.max(maxGold,dp[r][c+1]);
-                    }
-                    if(r+1<n){
-                        maxGold=Math.max(maxGold,dp[r+1][c+1]);
-                    }
+                int min=Integer.MAX_VALUE;
+                if(j+1<grid[0].length){
+                    min=Math.min(min,dp[i][j+1]);
                 }
-                
-                dp[r][c]=maxGold+arr[r][c];
+                if(i+1<grid.length){
+                    min=Math.min(min,dp[i+1][j]);
+                }
+
+                dp[i][j]=min+arr[i][j];
             }
         }
-        int maxGoldMined=Integer.MIN_VALUE;
-        for(int i=0;i<n;i++){
-            maxGoldMined=Math.max(maxGoldMined,dp[i][0]);
-        }
-        
-        return maxGoldMined;
+
+        return dp[0][0];
     }
 }
