@@ -111,3 +111,98 @@ public class Main {
         return least1;
     }
 }
+
+//leetcode 265
+
+class Solution {
+    public int minCostII(int[][] costs) {
+        int n=costs.length;
+        int k=costs[0].length;
+
+        int[][] dp=new int[n][k];
+
+        for(int i=0;i<k;i++){
+            dp[0][i]=costs[0][i];
+        }
+
+        for(int i=1;i<n;i++){
+            for(int j=0;j<k;j++){
+                int minCostColor=Integer.MAX_VALUE;
+                for(int c=0;c<k;c++){
+                    if(c==j) continue;
+                    minCostColor=Math.min(minCostColor,dp[i-1][c]);
+                }
+                dp[i][j]=minCostColor+costs[i][j];
+            }
+        }
+        int ans=Integer.MAX_VALUE;
+        for(int i=0;i<k;i++){
+            ans=Math.min(ans,dp[n-1][i]);
+        }
+
+        return ans;
+        
+    }
+}
+
+//optimized 
+
+class Solution {
+    public int minCostII(int[][] costs) {
+        int n=costs.length;
+        int k=costs[0].length;
+
+        int[][] dp=new int[n][k];
+        int least=Integer.MAX_VALUE;
+        int sleast=Integer.MAX_VALUE;
+
+        for(int i=0;i<k;i++){
+            dp[0][i]=costs[0][i];
+
+            if(costs[0][i]<least){
+                sleast=least;
+                least=costs[0][i];
+            }
+            else if(costs[0][i]<sleast){
+                sleast=costs[0][i];
+            }
+        }
+
+        
+
+        for(int i=1;i<n;i++){
+            int nleast1=Integer.MAX_VALUE;
+            int nleast2=Integer.MAX_VALUE;
+
+            for(int j=0;j<k;j++){
+                int minCostColor=Integer.MAX_VALUE;
+                if(dp[i-1][j]!=least){
+                    dp[i][j]=least+costs[i][j];
+                }
+                else{
+                    dp[i][j]=sleast+costs[i][j];
+                }
+
+                if(dp[i][j]<nleast1){
+                    nleast2=nleast1;
+                    nleast1=dp[i][j];
+                }
+
+                else if(dp[i][j]<nleast2){
+                    nleast2=dp[i][j];
+                }
+            }
+
+            least=nleast1;
+            sleast=nleast2;
+        }
+        
+        int ans=Integer.MAX_VALUE;
+        for(int i=0;i<k;i++){
+            ans=Math.min(ans,dp[n-1][i]);
+        }
+
+        return ans;
+        
+    }
+}
