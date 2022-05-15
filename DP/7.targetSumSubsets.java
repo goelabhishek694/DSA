@@ -61,3 +61,37 @@ public class Main {
         return dp[arr.length][tar];
     }
 }
+
+// GFG
+// https://practice.geeksforgeeks.org/problems/subset-sum-problem-1611555638/1/
+
+class Solution{
+
+
+    static Boolean isSubsetSum(int N, int arr[], int sum){
+        // code here
+        boolean[][] dp=new boolean[N+1][sum+1];
+
+        for(int i=0;i<=N;i++){
+            for(int j=0;j<=sum;j++){
+                if(i==0 && j==0){
+                    dp[i][j]=true;
+                    continue;
+                }
+                if(i==0){
+                    dp[i][j]=false;
+                    continue;
+                }
+
+                boolean res=false;
+                if(j-arr[i-1]>=0){
+                    res=res||dp[i-1][j-arr[i-1]];
+                }
+                res=res||dp[i-1][j];
+                dp[i][j]=res;
+            }
+        }
+        return dp[N][sum];
+        
+    }
+}
