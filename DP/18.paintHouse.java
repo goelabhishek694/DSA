@@ -31,3 +31,26 @@ public class Main {
         System.out.println(minCost);
     }
 }
+
+//leetcode 256
+
+class Solution {
+    public int minCost(int[][] costs) {
+        
+        int oldRed=costs[0][0];
+        int oldBlue=costs[0][1];
+        int oldGreen=costs[0][2];
+        
+        for(int i=1;i<costs.length;i++){
+            int newRed=Math.min(oldBlue,oldGreen)+costs[i][0];
+            int newBlue=Math.min(oldRed,oldGreen)+costs[i][1];
+            int newGreen=Math.min(oldBlue,oldRed)+costs[i][2];
+            
+            oldRed=newRed;
+            oldBlue=newBlue;
+            oldGreen=newGreen;
+        }
+        
+        return Math.min(oldRed,Math.min(oldBlue,oldGreen));
+    }
+}
