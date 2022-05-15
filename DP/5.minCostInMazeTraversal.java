@@ -47,3 +47,41 @@ public class Main {
     }
 
 }
+
+// leetcode 64. Minimum Path Sum
+
+class Solution{
+    static int maxGold(int n, int m, int arr[][])
+    {
+        // code here
+        int[][]dp=new int[n][m];
+        for(int c=m-1;c>=0;c--){
+            for(int r=0;r<n;r++){
+                if(c==m-1){
+                    dp[r][c]=arr[r][c];
+                    continue;
+                }
+                int maxGold=Integer.MIN_VALUE;
+                if(c+1<m){
+                    if(r-1>=0){
+                        maxGold=Math.max(maxGold,dp[r-1][c+1]);
+                    }
+                    if(r>=0){
+                        maxGold=Math.max(maxGold,dp[r][c+1]);
+                    }
+                    if(r+1<n){
+                        maxGold=Math.max(maxGold,dp[r+1][c+1]);
+                    }
+                }
+                
+                dp[r][c]=maxGold+arr[r][c];
+            }
+        }
+        int maxGoldMined=Integer.MIN_VALUE;
+        for(int i=0;i<n;i++){
+            maxGoldMined=Math.max(maxGoldMined,dp[i][0]);
+        }
+        
+        return maxGoldMined;
+    }
+}
