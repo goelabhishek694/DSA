@@ -28,12 +28,33 @@ public class Main {
                 if(j==0) continue;
                 // int maxVal=Integer.MIN_VALUE;
                 if(j-weights[i]>=0){
-                    dp[i][j]=dp[j-weights[i]]+value[i]);
+                    dp[j]=dp[j-weights[i]]+value[i]);
                 }
 
             }
 
         }
         return dp[cap];
+    }
+}
+
+// gfg
+// https://practice.geeksforgeeks.org/problems/knapsack-with-duplicate-items4201/1/
+
+class Solution{
+    static int knapSack(int N, int W, int val[], int wt[])
+    {
+        // code here
+        int[] dp=new int[W+1];
+        dp[0]=0;
+        for(int i=0;i<wt.length;i++){
+            int weight=wt[i];
+            for(int j=1;j<=W;j++){
+                if(j-weight>=0){
+                    dp[j]=Math.max(dp[j],dp[j-weight]+val[i]);
+                }
+            }
+        }
+        return dp[W];
     }
 }
