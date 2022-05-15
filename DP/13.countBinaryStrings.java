@@ -27,3 +27,28 @@ public static void main(String[] args) throws Exception {
  }
 
 }
+
+// GFG
+// https://practice.geeksforgeeks.org/problems/consecutive-1s-not-allowed1912/1/
+class Solution {
+    long countStrings(int n) {
+        // code here
+        
+        long oldEndingWithZero=1;
+        long oldEndingWithOne=1;
+        
+        for(int i=2;i<=n;i++){
+            
+            long newEndingWithZero=(oldEndingWithZero+oldEndingWithOne)%1000000007;
+            long newEndingWithOne=oldEndingWithZero%1000000007;
+            
+            oldEndingWithZero=newEndingWithZero;
+            oldEndingWithOne=newEndingWithOne;
+            
+        }
+        
+        long ans=(oldEndingWithZero+oldEndingWithOne)%1000000007;
+        
+        return (int)(ans);
+    }
+}
