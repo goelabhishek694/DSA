@@ -43,3 +43,51 @@ import java.util.*;
           }
      }
  }
+
+
+//  leetcode 215
+
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        PriorityQueue<Integer> pq=new PriorityQueue<>();
+        for(int i=0;i<nums.length;i++){
+            if(pq.size()==k){
+                int ele=pq.peek();
+                if(nums[i]>ele){
+                    pq.poll();
+                    pq.add(nums[i]);
+                }
+            }
+            else pq.add(nums[i]);
+        }
+        return pq.peek(); 
+    }
+}
+
+// Leetcode 414
+
+class Solution {
+    public int thirdMax(int[] nums) {
+        HashSet<Integer> set=new HashSet<>();
+        for(int ele:nums){
+            set.add(ele);
+        }
+        PriorityQueue<Integer>pq=new PriorityQueue<>();
+        for(int ele:set){
+            if(pq.size()==3){
+                int e=pq.peek();
+                if(ele>e){
+                    pq.remove();
+                    pq.add(ele);
+                }
+            }
+            else pq.add(ele);
+        }
+        if(pq.size()<3){
+            while(pq.size()>1){
+                pq.remove();
+            }
+        }
+        return pq.peek();
+    }
+}
