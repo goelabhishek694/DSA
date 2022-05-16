@@ -46,3 +46,35 @@ public static void main(String[] args) throws Exception {
  }
 
 }
+
+// leetcode 128
+
+class Solution {
+    public int longestConsecutive(int[] nums) {
+        if(nums.length==0) return 0;
+        HashMap<Integer,Integer> map=new HashMap();
+        for(int i=0;i<nums.length;i++){
+            map.put(nums[i],1);
+        }
+        
+        for(int ele:nums){
+            if(map.containsKey(ele-1)){
+                map.put(ele,0);
+            }
+        }
+        int maxLen=1;
+        for(int ele:nums){
+            if(map.containsKey(ele) && map.get(ele)==1){
+                int tempLen=1;
+                int tempStartPoint=ele;
+                
+                while(map.containsKey(tempLen+tempStartPoint)){
+                    tempLen++;
+                }
+                maxLen=Math.max(maxLen,tempLen);
+            }
+        }
+        
+        return maxLen;
+    }
+}
