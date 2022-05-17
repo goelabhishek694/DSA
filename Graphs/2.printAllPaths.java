@@ -54,6 +54,7 @@ public class Main {
                 dfs(graph,e.nbr,dest,vis,ans+src);
             }
         }
+        vis[src]=false;
 
         return;
     }
